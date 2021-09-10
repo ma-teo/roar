@@ -11,7 +11,7 @@ const paths = require('../config/paths')
 if (paths.clientSrc) {
   const clientCompiler = webpack(clientConfig('development'))
 
-  const clientServer = new devServer(clientCompiler, devServerConfig)
+  const clientServer = new devServer(devServerConfig, clientCompiler)
 
   clientCompiler.hooks.done.tap('done', stats => {
     if (!stats.hasErrors()) {
@@ -41,7 +41,7 @@ if (paths.clientSrc) {
 
   console.log(chalk.blue('Client Building...'))
 
-  clientServer.listen(devServerConfig.port)
+  clientServer.start()
 } else {
   console.log(chalk.red('Error! `src/client.js` file is not exist!'))
 }
